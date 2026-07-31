@@ -1,0 +1,30 @@
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 22px 20px;
+  width: 400px;
+  color: var(--white);
+  background-color: var(--bgDark);
+  border-radius: 16px;
+}
+
+.modal__title-block {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal__title {
+  font-size: 20px;
+  line-height: 1.625;
+}
+
+.modal__icon {
+  color: var(--white);
+  &:hover {
+    color: var(--linkHover);
+  }
+}

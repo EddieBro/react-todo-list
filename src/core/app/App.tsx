@@ -1,17 +1,8 @@
-import { useState } from 'react'
-import './App.scss'
+import {RouterProvider} from 'react-router-dom';
+import {router} from '@/core/app/routes.tsx';
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="app">
-      <h1>React Todo List</h1>
-      <button type="button" onClick={() => setCount((c) => c + 1)}>
-        count is {count}
-      </button>
-    </div>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
