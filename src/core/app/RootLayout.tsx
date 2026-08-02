@@ -1,4 +1,4 @@
-import {HeaderContainer} from '@/modules/header/components/HeaderContainer.tsx';
+import {HeaderContainer} from '@/modules/header/containers/HeaderContainer.tsx';
 import { Outlet } from 'react-router-dom';
 
 export const RootLayout = () => {
