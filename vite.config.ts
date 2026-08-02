@@ -9,4 +9,9 @@ export default defineConfig({
     checker({ typescript: true, eslint: { lintCommand: 'eslint .' } }),
     tsconfigPaths(),
   ],
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+    },
+  },
 })

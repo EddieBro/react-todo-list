@@ -1,0 +1,26 @@
+.user-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  &__avatar-wrap {
+    padding: 2px;
+    border-radius: 50%;
+    border: 1px solid var(--orange);
+  }
+  &__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  &__id {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  &__name {
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
