@@ -1,0 +1,23 @@
+.sidebar {
+  padding: 20px 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  width: 94px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  background-color: var(--sidebar);
+}
+
+.logo {
+  display: block;
+  text-decoration: none;
+  &__img {
+    display: block;
+    margin: 0 auto 5px;
+  }
+  &__text {
+    color: var(--logoColor);
+    text-transform: uppercase;
+  }
+}

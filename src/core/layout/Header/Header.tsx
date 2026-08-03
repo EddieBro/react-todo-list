@@ -1,10 +1,10 @@
 import {AppBar, Container, Link, Stack, Toolbar, Typography} from '@mui/material';
 import {NavLink} from 'react-router-dom';
-import styles from './HeaderContainer.module.scss'
+import styles from './Header.module.scss'
 
-export const HeaderContainer = () => {
+export const Header = () => {
   return (
-      <AppBar position='sticky'>
+      <AppBar position='static'>
         <Container maxWidth='xl'>
           <Toolbar sx={{gap: 3}}>
             <Typography className={styles.logo} variant='h4' component={NavLink} to='/'>Todo List</Typography>

@@ -13,10 +13,12 @@ export const HomePage = () => {
 
   return (
       <div className={styles.pageWrap}>
-          <div className={styles.centerCol}>222</div>
+          <div className={styles.centerCol}>Home page</div>
           <div className={styles.rightCol}>
             <h2>Список пользователей</h2>
-            <UserList userList={users} />
+            <div className={styles.userListScroll}>
+              <UserList userList={users} />
+            </div>
             <UserAdd onAdd={handleAddUser} />
           </div>
       </div>

@@ -1,0 +1,20 @@
+.page-wrap {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.center-block {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  min-width: 0;
+  background-color: var(--centerBg);
+}
+
+.content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
