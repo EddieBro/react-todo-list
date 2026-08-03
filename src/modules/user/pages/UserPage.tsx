@@ -3,7 +3,6 @@ import {UserList} from '@/shared/components/UserList/UserList.tsx';
 import {usersDataMock} from '@/modules/user/usersDataMock.ts';
 
 export const UserPage = () => {
-  const users = usersDataMock;
   return (
       <Container maxWidth='xl' sx={{py: 4}}>
         <Stack direction='row' sx={{justifyContent: 'space-between', alignItems: 'center', mb: 3}}>
@@ -11,7 +10,7 @@ export const UserPage = () => {
         </Stack>
 
         <Box>
-          <UserList userList={users}  />
+          <UserList userList={usersDataMock}  />
         </Box>
       </Container>
   )

@@ -1,7 +1,7 @@
 export type User = {
   id: number;
   name: string;
-  avatarId: number;
+  avatarId?: number;
 }
 
 export type Session = {

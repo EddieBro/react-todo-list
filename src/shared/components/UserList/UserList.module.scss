@@ -1,5 +1,7 @@
 .user-list {
+  padding: 24px 0;
   display: flex;
   flex-flow: column nowrap;
   gap: 18px;
+  overflow-y: auto;
 }
