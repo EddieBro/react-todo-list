@@ -1,15 +1,15 @@
 export type User = {
-  id: number;
+  id: string;
   name: string;
   avatarId?: number;
 }
 
 export type Session = {
-  userId: number;
+  userId: string;
 }
 
 export type Board = {
-  id: number;
+  id: string;
   title: string;
   ownerId: User['id'];
   editorsIds: User['id'][]
@@ -20,7 +20,7 @@ export type BoardDetails = Board & {
 }
 
 export type Task = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   authorId: User['id'];
@@ -28,7 +28,7 @@ export type Task = {
 }
 
 export type Column = {
-  id: number;
+  id: string;
   title: string;
   tasks: Task[];
 }
