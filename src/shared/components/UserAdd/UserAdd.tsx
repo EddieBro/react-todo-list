@@ -1,52 +1,52 @@
-import {useState} from 'react';
-import type {FormEvent} from 'react';
 import {Stack} from '@mui/material';
 import type {User} from '@/core/models/models.ts';
-import {TextFieldWrap} from '@/shared/ui/TextField/TextField.tsx';
 import {Button} from '@/shared/ui/Button/Button.tsx';
+import {useForm} from 'react-hook-form';
+import {FormTextField} from '@/shared/ui/FormTextField/FormTextField.tsx';
+import {createId} from '@/shared/utils/id.ts';
 import styles from './UserAdd.module.scss';
 
 type UserAddProps = {
   onAdd: (user: User) => void;
 };
 
+type CreateUserForm = {
+  name: string;
+  avatarId: string;
+}
+
 export const UserAdd = ({onAdd}: UserAddProps) => {
-  const [name, setName] = useState('');
-  const [avatarId, setAvatarId] = useState('');
+  const {control, handleSubmit, reset} = useForm<CreateUserForm>({
+    defaultValues: {name: '', avatarId: ''}
+  });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!name.trim()) {
-      return;
-    }
-
+  const onSubmit = (data: CreateUserForm)=> {
     onAdd({
-      id: Date.now(),
-      name: name.trim(),
-      avatarId: avatarId ? Number(avatarId) : undefined,
+      id: createId(),
+      name: data.name.trim(),
+      avatarId: data.avatarId ? Number(data.avatarId) : undefined,
     });
+    reset();
+  }
 
-    setName('');
-    setAvatarId('');
-  };
 
   return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
-          <TextFieldWrap
-              fullWidth
+          <FormTextField<CreateUserForm>
+              control={control}
+              name='name'
+              rules={{required: 'Введите имя'}}
               label='Имя'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-          />
-          <TextFieldWrap
               fullWidth
+          />
+          <FormTextField<CreateUserForm>
+              control={control}
+              name='avatarId'
               className={styles.avatarInput}
               label='Аватар (1-4, необязательно)'
               type='number'
-              value={avatarId}
-              onChange={(e) => setAvatarId(e.target.value)}
+              fullWidth
           />
           <Button type='submit'>Добавить</Button>
         </Stack>

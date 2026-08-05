@@ -6,21 +6,29 @@ export type User = {
 
 export type Session = {
   userId: number;
-  name: string;
-  avatarId: number;
 }
 
 export type Board = {
+  id: number;
   title: string;
-  ownerId: number;
-  editorsIds: number[];
-  cols: []
+  ownerId: User['id'];
+  editorsIds: User['id'][]
+}
+
+export type BoardDetails = Board & {
+  columns: Column[];
 }
 
 export type Task = {
+  id: number;
   title: string;
   description: string;
-  authorId: number;
-  assigneeId: number;
+  authorId: User['id'];
+  assigneeId?: User['id'];
 }
 
+export type Column = {
+  id: number;
+  title: string;
+  tasks: Task[];
+}

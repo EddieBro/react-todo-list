@@ -1,9 +1,10 @@
 import {createBrowserRouter} from 'react-router-dom';
 import {RootLayout} from '@/core/layout/RootLayout.tsx';
-import {UserPage} from '@/modules/user/pages/UserPage.tsx';
-import {BoardListPage} from '@/modules/board/pages/BoardListPage.tsx';
 import {BoardPage} from '@/modules/board/pages/BoardPage.tsx';
 import {HomePage} from '@/modules/home/pages/HomePage.tsx';
+import {UserPage} from '@/modules/users/pages/UserPage.tsx';
+import {UserListPage} from '@/modules/users/pages/UserListPage.tsx';
+import {BoardListPage} from '@/modules/boards/pages/BoardListPage.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -11,8 +12,9 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {index: true, element: <HomePage/>},
-      {path: 'user', element: <UserPage />},
-      {path: 'board', element: <BoardListPage />},
+      {path: 'users', element: <UserListPage />},
+      {path: 'users/:userId', element: <UserPage />},
+      {path: 'boards', element: <BoardListPage />},
       {path: 'board/:boardId', element: <BoardPage />},
     ],
   },

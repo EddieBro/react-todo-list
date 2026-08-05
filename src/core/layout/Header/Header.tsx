@@ -1,19 +1,14 @@
-import {AppBar, Container, Link, Stack, Toolbar, Typography} from '@mui/material';
+import { Link, Stack,} from '@mui/material';
 import {NavLink} from 'react-router-dom';
 import styles from './Header.module.scss'
 
 export const Header = () => {
   return (
-      <AppBar position='static'>
-        <Container maxWidth='xl'>
-          <Toolbar sx={{gap: 3}}>
-            <Typography className={styles.logo} variant='h4' component={NavLink} to='/'>Todo List</Typography>
-            <Stack component='nav' direction='row' spacing={3}>
-              <Link underline='hover' component={NavLink} to='/user' color='inherit'>Пользователи</Link>
-              <Link  underline='hover' component={NavLink} to='/board' color='inherit'>Доска</Link>
-            </Stack>
-          </Toolbar>
-        </Container>
-      </AppBar>
+      <header className={styles.header}>
+        <Stack component='nav' direction='row' spacing={3}>
+          <Link underline='hover' component={NavLink} to='/users' color='inherit'>Пользователи</Link>
+          <Link  underline='hover' component={NavLink} to='/boards' color='inherit'>Доски</Link>
+        </Stack>
+      </header>
   )
 }

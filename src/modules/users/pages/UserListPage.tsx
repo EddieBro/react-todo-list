@@ -1,8 +1,8 @@
 import {Box, Container, Stack, Typography} from '@mui/material';
+import {usersDataMock} from '@/modules/users/usersDataMock.ts';
 import {UserList} from '@/shared/components/UserList/UserList.tsx';
-import {usersDataMock} from '@/modules/user/usersDataMock.ts';
 
-export const UserPage = () => {
+export const UserListPage = () => {
   return (
       <Container maxWidth='xl' sx={{py: 4}}>
         <Stack direction='row' sx={{justifyContent: 'space-between', alignItems: 'center', mb: 3}}>
