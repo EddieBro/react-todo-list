@@ -1,17 +1,20 @@
 import type {Column as col, Task} from '@/core/models/models.ts';
 import {TaskCard} from '@/modules/board';
+import styles from './Column.module.scss';
 
 export const Column = ({column, tasks}: {column: col, tasks: Task[]}) => {
   return (
-      <div>
-        <div>
-          <div>{column.id}</div>
+      <div className={styles.columnWrap}>
+        <div className={styles.titleBlock}>
           <div>{column.title}</div>
-          <div>{column.taskIds}</div>
+          <button className={styles.titleBlockAdd}></button>
         </div>
-        {tasks.map(task => (
-            <TaskCard task={task} />
-        ))}
+        <div className={styles.cardList}>
+          {tasks.map(task => (
+              <TaskCard key={task.id} task={task} />
+          ))}
+        </div>
+
       </div>
 
   );

@@ -1,0 +1,32 @@
+.column-wrap {
+  width: 233px;
+}
+.card-list {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 16px;
+}
+
+.title-block {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: var(--white);
+  &__add {
+    margin: 0;
+    flex-shrink: 0;
+    padding: 7px;
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    border: none;
+    background: url('/img/svg/add.svg') var(--taskAddColor) center no-repeat;
+  }
+  &__title {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--taskTitle);
+  }
+}
