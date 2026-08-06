@@ -1,0 +1,10 @@
+.page-wrap {
+  padding: 40px 30px;
+}
+
+.column-wrap {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: auto;
+  gap: 16px;
+}

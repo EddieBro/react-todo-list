@@ -1,6 +1,6 @@
 import {Box, Container, Stack, Typography} from '@mui/material';
-import {usersDataMock} from '@/modules/users/usersDataMock.ts';
-import {UserList} from '@/shared/components/UserList/UserList.tsx';
+import {usersDataMock} from '@/modules/users';
+import {UserList} from '@/modules/users';
 
 export const UserListPage = () => {
   return (

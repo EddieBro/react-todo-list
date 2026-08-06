@@ -1,0 +1,15 @@
+.task-card {
+  padding: 16px 18px;
+  background-color: var(--white);
+  border-radius: 12px;
+  &__title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--taskTitle);
+  }
+  &__desc {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--taskDesc);
+  }
+}

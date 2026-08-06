@@ -5,7 +5,7 @@ export type User = {
 }
 
 export type Session = {
-  userId: string;
+  userId: User['id'] | null;
 }
 
 export type Board = {
@@ -17,6 +17,7 @@ export type Board = {
 
 export type BoardDetails = Board & {
   columns: Column[];
+  tasks: Record<Task['id'], Task>
 }
 
 export type Task = {
@@ -30,5 +31,5 @@ export type Task = {
 export type Column = {
   id: string;
   title: string;
-  tasks: Task[];
+  taskIds: Task['id'][];
 }

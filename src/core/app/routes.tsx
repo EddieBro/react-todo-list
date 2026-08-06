@@ -1,10 +1,9 @@
 import {createBrowserRouter} from 'react-router-dom';
 import {RootLayout} from '@/core/layout/RootLayout.tsx';
-import {BoardPage} from '@/modules/board/pages/BoardPage.tsx';
-import {HomePage} from '@/modules/home/pages/HomePage.tsx';
-import {UserPage} from '@/modules/users/pages/UserPage.tsx';
-import {UserListPage} from '@/modules/users/pages/UserListPage.tsx';
-import {BoardListPage} from '@/modules/boards/pages/BoardListPage.tsx';
+import {BoardPage} from '@/modules/board';
+import {HomePage} from '@/modules/home';
+import {UserPage, UserListPage} from '@/modules/users';
+import {BoardListPage} from '@/modules/boards';
 
 export const router = createBrowserRouter([
   {

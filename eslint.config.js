@@ -18,5 +18,19 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [
+          {
+            group: ['@/modules/*/*'],
+            message: 'Модуль импортируется только через публичный API: @/modules/<name>',
+          },
+          {
+            group: ['./core/*', './modules/*', './shared/*', '../../../*'],
+            message: 'Через границы слоёв — только алиасы @/core, @/modules, @/shared',
+          },
+        ],
+      }],
+    },
   },
 ])
