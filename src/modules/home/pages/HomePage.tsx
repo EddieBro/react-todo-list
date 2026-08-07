@@ -1,7 +1,8 @@
 import styles from './HomePage.module.scss'
-import {usersDataMock, UserAdd, UserList} from '@/modules/users';
+import {UserAdd, UserList} from '@/modules/users';
 import {useState} from 'react';
 import type {User} from '@/core/models/models.ts';
+import {usersDataMock} from '@/shared/api/mocks/usersDataMock.ts';
 
 export const HomePage = () => {
   const [users, setUsers] = useState<User[]>(usersDataMock);

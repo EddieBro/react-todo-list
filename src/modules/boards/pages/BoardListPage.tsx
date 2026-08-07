@@ -1,6 +1,6 @@
 import {generatePath, Link} from 'react-router-dom';
-import {boardDataMock} from '@/modules/board';
 import styles from './BoardListPage.module.scss';
+import {boardDataMock} from '@/shared/api/mocks/boardDataMock.ts';
 
 export const BoardListPage = () => {
   return (

@@ -1,6 +1,6 @@
-import {boardDataMock} from '@/modules/board';
 import {Column} from '@/modules/board';
 import styles from './BoardPage.module.scss';
+import {boardDataMock} from '@/shared/api/mocks/boardDataMock.ts';
 
 export const BoardPage = () => {
   const board = boardDataMock;
