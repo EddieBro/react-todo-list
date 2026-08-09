@@ -1,9 +1,9 @@
 import {Column} from '@/modules/board';
 import styles from './BoardPage.module.scss';
-import {boardDataMock} from '@/shared/api/mocks/boardDataMock.ts';
+import {boardsDataMock} from '@/shared/api/mocks/boardsDataMock.ts';
 
 export const BoardPage = () => {
-  const board = boardDataMock;
+  const board = boardsDataMock;
   return (
       <div className={styles.pageWrap}>
         <h1>{board.title}</h1>

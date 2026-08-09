@@ -1,6 +1,6 @@
 import type {BoardDetails} from '@/core/models/models.ts';
 
-export const boardDataMock: BoardDetails = {
+export const boardsDataMock: BoardDetails[] = [{
   id: 'b-1',
   title: 'Демо-доска',
   ownerId: '1',
@@ -15,4 +15,4 @@ export const boardDataMock: BoardDetails = {
     't-2': {id: 't-2', title: 'Собрать компоненты', description: 'Собираем компоненты, но делаем это детально', authorId: '1'},
     't-3': {id: 't-3', title: 'Накидать мок доски', description: 'Накидать пол дела, попробуй собрать, сколотить, прикрутить', authorId: '1', assigneeId: '3'},
   },
-};
+}];

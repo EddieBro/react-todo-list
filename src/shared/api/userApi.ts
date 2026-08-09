@@ -17,7 +17,6 @@ export  const getUsers = async(): Promise<User[]> => {
 }
 
 export const getUser = async(id: User['id']): Promise<User | null> => {
-  await delay(300);
   const users = await getUsers();
   return users.find(u => u.id === id) ?? null;
 }

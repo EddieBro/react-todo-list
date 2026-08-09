@@ -1,12 +1,12 @@
 import {generatePath, Link} from 'react-router-dom';
 import styles from './BoardListPage.module.scss';
-import {boardDataMock} from '@/shared/api/mocks/boardDataMock.ts';
+import {boardsDataMock} from '@/shared/api/mocks/boardsDataMock.ts';
 
 export const BoardListPage = () => {
   return (
       <div className={styles.pageWrap}>
-        <Link to={generatePath('/boards/:boardId', {boardId: boardDataMock.id})}>
-          {boardDataMock.title}
+        <Link to={generatePath('/boards/:boardId', {boardId: boardsDataMock.id})}>
+          {boardsDataMock.title}
         </Link>
       </div>
   )
