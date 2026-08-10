@@ -1,9 +1,12 @@
-import {Column} from '@/modules/board';
+import {Column, useBoard} from '@/modules/board';
 import styles from './BoardPage.module.scss';
-import {boardsDataMock} from '@/shared/api/mocks/boardsDataMock.ts';
 
 export const BoardPage = () => {
-  const board = boardsDataMock;
+  const board = useBoard();
+  if (!board) {
+    return <div>Доска не найдена</div>
+  }
+
   return (
       <div className={styles.pageWrap}>
         <h1>{board.title}</h1>

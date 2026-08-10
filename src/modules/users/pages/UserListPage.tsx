@@ -1,8 +1,8 @@
 import {Box, Container, Stack, Typography} from '@mui/material';
-import {UserList} from '@/modules/users';
-import {usersDataMock} from '@/shared/api/mocks/usersDataMock.ts';
+import {UserList, useUsers} from '@/modules/users';
 
 export const UserListPage = () => {
+  const users = useUsers();
   return (
       <Container maxWidth='xl' sx={{py: 4}}>
         <Stack direction='row' sx={{justifyContent: 'space-between', alignItems: 'center', mb: 3}}>
@@ -10,7 +10,7 @@ export const UserListPage = () => {
         </Stack>
 
         <Box>
-          <UserList userList={usersDataMock}  />
+          <UserList userList={users}  />
         </Box>
       </Container>
   )
