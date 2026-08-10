@@ -1,14 +1,11 @@
-import {generatePath, Link} from 'react-router-dom';
 import styles from './BoardListPage.module.scss';
-import {useBoards} from '@/modules/boards';
+import {BoardsTable, useBoards} from '@/modules/boards';
 
 export const BoardListPage = () => {
-  const boards = useBoards();
+  const {boards, users} = useBoards();
   return (
       <div className={styles.pageWrap}>
-        <Link to={generatePath('/boards/:boardId', {boardId: boards[0].id})}>
-          {boards[0].title}
-        </Link>
+        <BoardsTable boards={boards} users={users} />
       </div>
   )
 }

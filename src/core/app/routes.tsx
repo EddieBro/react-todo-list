@@ -15,7 +15,14 @@ export const router = createBrowserRouter([
       {index: true, element: <HomePage/>},
       {path: 'users', element: <UserListPage />, loader: () => userApi.getUsers()},
       {path: 'users/:userId', element: <UserPage />},
-      {path: 'boards', element: <BoardListPage />, loader: () => boardApi.getBoards()},
+      {
+        path: 'boards',
+        element: <BoardListPage />,
+        loader: async () => {
+          const [boards, users] = await Promise.all([boardApi.getBoards(), userApi.getUsers()]);
+          return {boards, users};
+        }
+      },
       {path: 'boards/:boardId', element: <BoardPage/>, loader: ({params}) =>
             boardApi.getBoard(params.boardId!)},
     ],
