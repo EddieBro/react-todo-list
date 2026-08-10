@@ -14,7 +14,9 @@ export const BoardListPage = () => {
   }
   return (
       <div className={styles.pageWrap}>
-        <BoardAdd users={users} onAdd={handleAdd} />
+        <div className={styles.formBoardAdd}>
+          <BoardAdd users={users} onAdd={handleAdd} />
+        </div>
         <BoardsTable boards={boards} users={users} />
       </div>
   )

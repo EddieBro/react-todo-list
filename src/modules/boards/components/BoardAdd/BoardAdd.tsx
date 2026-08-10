@@ -46,6 +46,7 @@ export const BoardAdd = ({users, onAdd}: BoardAddProps) => {
           <FormSelect
               name='ownerId'
               control={control}
+              rules={{required: 'Выберите владельца доски'}}
               label='Владелец доски' options={userOptions}
           />
           <FormSelect
