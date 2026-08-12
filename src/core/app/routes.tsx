@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     children: [
       {index: true, element: <HomePage/>},
       {path: 'users', element: <UserListPage />, loader: () => userApi.getUsers()},
-      {path: 'users/:userId', element: <UserPage />},
+      {path: 'users/:userId', element: <UserPage />, loader: ({params}) => userApi.getUser(params.userId!)},
       {
         path: 'boards',
         element: <BoardListPage />,

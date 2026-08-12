@@ -2,8 +2,7 @@ import type {User} from '@/core/models/models.ts';
 import {getItem, setItem} from '@/shared/api/storage.ts';
 import {usersDataMock} from '@/shared/api/mocks/usersDataMock.ts';
 import type {UserApi} from '@/shared/api/types.ts';
-
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+import {delay} from '@/shared/api/delay.ts';
 
 export  const getUsers = async(): Promise<User[]> => {
   await delay(300);

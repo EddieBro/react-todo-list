@@ -8,7 +8,6 @@ export const UserListPage = () => {
         <Stack direction='row' sx={{justifyContent: 'space-between', alignItems: 'center', mb: 3}}>
           <Typography variant='h4' component='h1'>Пользователи</Typography>
         </Stack>
-
         <Box>
           <UserList userList={users}  />
         </Box>

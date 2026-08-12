@@ -2,9 +2,7 @@ import type {BoardApi} from '@/shared/api/types.ts';
 import type {Board, BoardDetails} from '@/core/models/models.ts';
 import {getItem, setItem} from '@/shared/api/storage.ts';
 import {boardsDataMock} from '@/shared/api/mocks/boardsDataMock.ts';
-
-
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+import {delay} from '@/shared/api/delay.ts';
 
 const getBoardsDetails = async (): Promise<BoardDetails[]> => {
   await delay(300);
@@ -36,13 +34,10 @@ export const createBoard = async (board: Board): Promise<Board> => {
 
 export const updateBoard = async (board: Board): Promise<Board> => {
   const boards = await getBoardsDetails();
-  const index = boards.findIndex(b => b.id === board.id);
-  let next: Board[];
-  if (index === -1) {
-    next = [...boards, board];
-  } else {
-    next = boards.map(b => b.id === board.id ? {...b, ...board} : b);
+  if (!boards.some(b => b.id === board.id)) {
+    throw new Error(`Доска ${board.id} не найдена`);
   }
+  const next: BoardDetails[] = boards.map(b => b.id === board.id ? {...b, ...board} : b);
   await setItem('boards', next);
   return board;
 }

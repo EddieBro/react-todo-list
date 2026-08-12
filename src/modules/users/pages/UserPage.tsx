@@ -1,3 +1,17 @@
+import {Container, Stack, Typography} from '@mui/material';
+import {useUser} from '@/modules/users';
+import {UserCard} from '@/shared/components/UserCard/UserCard.tsx';
+
 export const UserPage = () => {
-  return (<div>User page</div>)
+  const user = useUser();
+  return (
+      <Container maxWidth='xl' sx={{py: 4}}>
+        <Stack spacing={3}>
+          <Typography variant='h4' component='h1'>
+            {user ? 'Пользователь' : 'Пользователь не найден'}
+          </Typography>
+          {user && <UserCard {...user} />}
+        </Stack>
+      </Container>
+  );
 }

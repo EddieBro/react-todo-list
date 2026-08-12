@@ -1,5 +1,6 @@
 import type {User} from '@/core/models/models.ts';
 import styles from './UserCard.module.scss';
+import {generatePath, Link} from 'react-router-dom';
 
 export const UserCard = (user: User) => {
   const avatarSrc = user.avatarId ? `/img/ava${user.avatarId}.png` : '/img/ava-default.png';
@@ -14,7 +15,10 @@ export const UserCard = (user: User) => {
         </div>
         <div>
           <div className={styles.userBlockId}>ID: {user.id}</div>
-          <div className={styles.userBlockName}>Name: {user.name}</div>
+          <div className={styles.userBlockName}>
+            Name:{' '}
+            <Link to={generatePath('/users/:userId', {userId: user.id})}>{user.name}</Link>
+          </div>
         </div>
       </div>
   )
