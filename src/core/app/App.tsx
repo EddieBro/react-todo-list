@@ -1,12 +1,13 @@
 import {RouterProvider} from 'react-router-dom';
 import {router} from '@/core/app/routes.tsx';
-import {SessionProvider} from '@/core/session/SessionProvider.tsx';
+import {Provider} from 'react-redux';
+import {store} from '@/core/store/store.ts';
 
 function App() {
   return (
-    <SessionProvider>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </SessionProvider>
+    </Provider>
   )
 }
 

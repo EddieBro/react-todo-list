@@ -1,10 +1,11 @@
-import {useContext} from 'react';
-import {SessionContext} from '@/core/session/SessionContext.ts';
+import {login, logout, useAppDispatch, useAppSelector} from '@/core/store';
 
 export const useSession = () => {
-  const ctx = useContext(SessionContext);
-  if (!ctx) {
-    throw new Error('SessionProvider needed');
+  const userId = useAppSelector(state => state.session.userId);
+  const dispatch = useAppDispatch();
+  return {
+    currentUserId: userId,
+    login: (id: string) => dispatch(login(id)),
+    logout: () => dispatch(logout())
   }
-  return ctx;
 }
