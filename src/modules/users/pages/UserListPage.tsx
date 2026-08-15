@@ -1,5 +1,6 @@
 import {Box, Container, Stack, Typography} from '@mui/material';
-import {UserList, useUsers} from '@/modules/users';
+import {UserList} from '../components/UserList/UserList.tsx';
+import {useUsers} from '../hooks/useUsers.ts';
 
 export const UserListPage = () => {
   const users = useUsers();

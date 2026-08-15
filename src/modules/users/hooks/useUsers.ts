@@ -1,4 +1,4 @@
-import {useLoaderData} from 'react-router-dom';
-import type {User} from '@/core/models/models.ts';
+import {useAppSelector} from '@/core/store';
+import {selectAllUsers} from '../store/usersSelectors.ts';
 
-export const useUsers = () => useLoaderData() as User[];
+export const useUsers = () => useAppSelector(selectAllUsers);

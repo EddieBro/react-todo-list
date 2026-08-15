@@ -29,7 +29,6 @@ export const UserAdd = ({onAdd}: UserAddProps) => {
     reset();
   }
 
-
   return (
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>

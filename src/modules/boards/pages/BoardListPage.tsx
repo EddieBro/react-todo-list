@@ -1,5 +1,7 @@
 import styles from './BoardListPage.module.scss';
-import {BoardAdd, BoardsTable, useBoards} from '@/modules/boards';
+import {BoardAdd} from '../components/BoardAdd/BoardAdd.tsx';
+import {BoardsTable} from '../components/BoardsTable/BoardsTable.tsx';
+import {useBoards} from '../hooks/useBoards.ts';
 import {useState} from 'react';
 import {Button} from '@/shared/ui/Button/Button.tsx';
 import {Modal} from '@/shared/ui/Modal/Modal.tsx';

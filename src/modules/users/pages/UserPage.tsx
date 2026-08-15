@@ -1,5 +1,5 @@
 import {Container, Stack, Typography} from '@mui/material';
-import {useUser} from '@/modules/users';
+import {useUser} from '../hooks/useUser.ts';
 import {UserCard} from '@/shared/components/UserCard/UserCard.tsx';
 
 export const UserPage = () => {

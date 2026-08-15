@@ -1,9 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {readSessionFromStorage, sessionReducer} from '@/core/store/sessionSlice.ts';
+import {USERS_SLICE, usersReducer} from '@/modules/users';
 
 export const store = configureStore({
   reducer: {
-    session: sessionReducer
+    session: sessionReducer,
+    [USERS_SLICE]: usersReducer
   },
   preloadedState: {session: readSessionFromStorage()}
 })

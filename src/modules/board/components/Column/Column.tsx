@@ -1,5 +1,5 @@
 import type {Column as col, Task} from '@/core/models/models.ts';
-import {TaskCard} from '@/modules/board';
+import {TaskCard} from '../TaskCard/TaskCard.tsx';
 import styles from './Column.module.scss';
 
 export const Column = ({column, tasks}: {column: col, tasks: Task[]}) => {

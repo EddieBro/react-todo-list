@@ -1,4 +1,5 @@
-import {Column, useBoard} from '@/modules/board';
+import {Column} from '../components/Column/Column.tsx';
+import {useBoard} from '../hooks/useBoard.ts';
 import styles from './BoardPage.module.scss';
 
 export const BoardPage = () => {
