@@ -3,11 +3,10 @@ import type {User} from '@/core/models/models.ts';
 import {Button} from '@/shared/ui/Button/Button.tsx';
 import {useForm} from 'react-hook-form';
 import {FormTextField} from '@/shared/ui/FormTextField/FormTextField.tsx';
-import {createId} from '@/shared/utils/id.ts';
 import styles from './UserAdd.module.scss';
 
 type UserAddProps = {
-  onAdd: (user: User) => void;
+  onAdd: (draft: Omit<User, 'id'>) => void;
 };
 
 type CreateUserForm = {
@@ -22,7 +21,6 @@ export const UserAdd = ({onAdd}: UserAddProps) => {
 
   const onSubmit = (data: CreateUserForm)=> {
     onAdd({
-      id: createId(),
       name: data.name.trim(),
       avatarId: data.avatarId ? Number(data.avatarId) : undefined,
     });

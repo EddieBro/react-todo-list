@@ -12,10 +12,11 @@ import {store} from '@/core/store/store.ts';
 export const router = createBrowserRouter([
   {
     path: '/', element: <RootLayout />, errorElement: <RouteError />,
+    loader: () => store.dispatch(fetchUsers()),
     children: [
       {index: true, element: <HomePage/>},
-      {path: 'users', element: <UserListPage />, loader: () =>store.dispatch(fetchUsers())},
-      {path: 'users/:userId', element: <UserPage />, loader: () => store.dispatch(fetchUsers())},
+      {path: 'users', element: <UserListPage />},
+      {path: 'users/:userId', element: <UserPage />},
       {
         path: 'boards',
         element: <BoardListPage />,

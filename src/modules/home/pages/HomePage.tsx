@@ -1,15 +1,10 @@
 import styles from './HomePage.module.scss'
-import {UserAdd, UserList} from '@/modules/users';
-import {useState} from 'react';
-import type {User} from '@/core/models/models.ts';
-import {usersDataMock} from '@/shared/api/mocks/usersDataMock.ts';
+import {UserList, useUsers} from '@/modules/users';
+
 
 export const HomePage = () => {
-  const [users, setUsers] = useState<User[]>(usersDataMock);
-  const handleAddUser = (user: User) => {
-    setUsers(prev => [...prev, user]);
-  };
-
+  const users = useUsers();
+  console.log(users, 'users');
   return (
       <div className={styles.pageWrap}>
           <div className={styles.centerCol}>Home page</div>
@@ -18,7 +13,6 @@ export const HomePage = () => {
             <div className={styles.userListScroll}>
               <UserList userList={users} />
             </div>
-            <UserAdd onAdd={handleAddUser} />
           </div>
       </div>
   );

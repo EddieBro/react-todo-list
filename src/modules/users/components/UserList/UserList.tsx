@@ -2,7 +2,12 @@ import {UserCard} from '@/shared/components/UserCard/UserCard.tsx';
 import type {User} from '@/core/models/models.ts';
 import styles from './UserList.module.scss';
 
-export const UserList = ({userList}: {userList: User[]}) => {
+type UserListProps = {
+  userList: User[];
+  onRemove?: (id: User['id']) => void;
+}
+
+export const UserList = ({userList}: UserListProps) => {
   return (
       <div className={styles.userList}>
         {userList.map(user => (

@@ -1,7 +1,7 @@
 import {createEntityAdapter, createSlice} from '@reduxjs/toolkit';
 import type {User} from '@/core/models/models.ts';
 import {USERS_SLICE} from './constants.ts';
-import {fetchUsers} from './usersThunks.ts';
+import {createUser, fetchUsers} from './usersThunks.ts';
 
 type UsersExtraState = {
   status: 'idle' | 'loading' | 'ready' | 'error';
@@ -34,7 +34,10 @@ const usersSlice = createSlice({
         .addCase(fetchUsers.rejected, (state, action) => {
           state.status = 'error';
           state.error = action.error.message ?? 'Не удалось загрузить пользователей';
-        });
+        })
+        .addCase(createUser.fulfilled, (state, action) => {
+          usersAdapter.addOne(state, action.payload);
+        })
   }
 });
 
