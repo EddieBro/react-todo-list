@@ -14,7 +14,7 @@ import {useSession} from '@/core/session/useSession.ts';
 export const UserListPage = () => {
   const {currentUserId, logout} = useSession();
   const dispatch = useAppDispatch();
-  const users = useUsers();
+  const {users} = useUsers();
   const [open, setOpen] = useState(false)
   const handleAdd = (draft: Omit<User, 'id'>) => {
     dispatch(createUser(draft)).unwrap().then(() => setOpen(false));

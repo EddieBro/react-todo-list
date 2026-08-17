@@ -8,3 +8,4 @@ export const selectAllUsers = selectors.selectAll;
 export const selectUserById = selectors.selectById;
 export const selectUsersMap = selectors.selectEntities;
 export const selectUsersStatus = (state: RootState) => state[USERS_SLICE].status;
+export const selectUsersError = (state: RootState) => state[USERS_SLICE].error;

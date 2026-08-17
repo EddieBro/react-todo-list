@@ -1,4 +1,8 @@
 import {useAppSelector} from '@/core/store';
-import {selectAllUsers} from '../store/usersSelectors.ts';
+import {selectAllUsers, selectUsersError, selectUsersStatus} from '../store/usersSelectors.ts';
 
-export const useUsers = () => useAppSelector(selectAllUsers);
+export const useUsers = () => ({
+  users: useAppSelector(selectAllUsers),
+  status: useAppSelector(selectUsersStatus),
+  error: useAppSelector(selectUsersError)
+})

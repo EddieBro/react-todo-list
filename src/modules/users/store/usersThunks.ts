@@ -11,7 +11,8 @@ export const fetchUsers = createAsyncThunk(
     {
       condition: (_arg: void, {getState}) => {
         const state = getState() as RootState;
-        return state[USERS_SLICE].status === 'idle';
+        const {status} = state[USERS_SLICE];
+        return status === 'idle' || status === 'error';
       }
     }
 );

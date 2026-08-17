@@ -3,7 +3,7 @@ import {UserList, useUsers} from '@/modules/users';
 
 
 export const HomePage = () => {
-  const users = useUsers();
+  const {users} = useUsers();
   return (
       <div className={styles.pageWrap}>
           <div className={styles.centerCol}>Home page</div>

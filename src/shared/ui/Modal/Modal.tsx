@@ -1,6 +1,6 @@
 import {type ReactNode} from 'react';
 import {Box, IconButton, Modal as MuiModal} from '@mui/material';
-import {Close} from '@mui/icons-material';
+import Close from '@mui/icons-material/Close';
 import styles from './Modal.module.scss';
 
 type ModalProps = {
