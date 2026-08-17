@@ -1,7 +1,9 @@
 .user-block {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 14px;
+
   &__avatar-wrap {
     padding: 2px;
     border-radius: 50%;
@@ -22,5 +24,12 @@
   &__name {
     font-size: 14px;
     font-weight: 500;
+  }
+  &__remove {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    border-radius: 50%;
+    background-color: var(--white);
   }
 }

@@ -4,14 +4,14 @@ import styles from './UserList.module.scss';
 
 type UserListProps = {
   userList: User[];
-  onRemove?: (id: User['id']) => void;
+  onDelete?: (id: User['id']) => void;
 }
 
-export const UserList = ({userList}: UserListProps) => {
+export const UserList = ({userList, onDelete}: UserListProps) => {
   return (
       <div className={styles.userList}>
         {userList.map(user => (
-            <UserCard key={user.id} {...user} />
+            <UserCard key={user.id} user={user} onDelete={onDelete} />
         ))}
       </div>
   );

@@ -16,8 +16,15 @@ export const fetchUsers = createAsyncThunk(
     }
 );
 
-
 export const createUser = createAsyncThunk(
     `${USERS_SLICE}/createUser`,
     (draft: Omit<User, 'id'>) => userApi.saveUser({...draft, id: createId()})
 );
+
+export const deleteUser = createAsyncThunk(
+    `${USERS_SLICE}/deleteUser`,
+    async (id: User['id']) => {
+      await userApi.deleteUser(id);
+      return id;
+    }
+)

@@ -10,7 +10,7 @@ export const UserPage = () => {
           <Typography variant='h4' component='h1'>
             {user ? 'Пользователь' : 'Пользователь не найден'}
           </Typography>
-          {user && <UserCard {...user} />}
+          {user && <UserCard user={user} />}
         </Stack>
       </Container>
   );

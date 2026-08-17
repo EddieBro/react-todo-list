@@ -22,12 +22,12 @@ export const BoardsTable = ({boards, users}: {boards: Board[], users: User[]}) =
                 <Link to={generatePath('/boards/:boardId', {boardId: board.id})}>{board.title}</Link>
               </TableCell>
               <TableCell>
-                <UserCard {...userMap[board.ownerId]} />
+                <UserCard user={userMap[board.ownerId]} />
               </TableCell>
               <TableCell>
                 <Stack direction='row' spacing={1} useFlexGap sx={{flexWrap: 'wrap'}}>
                   {board.editorsIds.map(id => userMap[id]).filter(Boolean).map(u =>
-                      <UserCard key={u.id} {...u} />
+                      <UserCard key={u.id} user={u} />
                   )}
                 </Stack>
               </TableCell>

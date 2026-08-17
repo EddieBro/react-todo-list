@@ -6,6 +6,6 @@ export {useUsers} from './hooks/useUsers.ts';
 export {useUser} from './hooks/useUser.ts';
 export {USERS_SLICE} from './store/constants.ts';
 export {usersReducer} from './store/usersSlice.ts';
-export {fetchUsers, createUser} from './store/usersThunks.ts';
+export {fetchUsers, createUser, deleteUser} from './store/usersThunks.ts';
 export {usersAdapter} from './store/usersSlice.ts'
 export {selectAllUsers, selectUserById, selectUsersMap} from './store/usersSelectors.ts';

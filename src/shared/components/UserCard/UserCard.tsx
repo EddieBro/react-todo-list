@@ -1,8 +1,15 @@
 import type {User} from '@/core/models/models.ts';
 import styles from './UserCard.module.scss';
 import {generatePath, Link} from 'react-router-dom';
+import {IconButton} from '@mui/material';
+import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 
-export const UserCard = (user: User) => {
+type UserCardProps = {
+  user: User,
+  onDelete?: (id: User['id']) => void;
+}
+
+export const UserCard = ({user, onDelete}: UserCardProps) => {
   const avatarSrc = user.avatarId ? `/img/ava${user.avatarId}.png` : '/img/ava-default.png';
 
   return (
@@ -20,6 +27,18 @@ export const UserCard = (user: User) => {
             <Link to={generatePath('/users/:userId', {userId: user.id})}>{user.name}</Link>
           </div>
         </div>
+        {onDelete && (
+            <div className={styles.userBlockRemove}>
+              <IconButton
+                  size='small'
+                  color={'warning'}
+                  aria-label={`Удалить пользователя ${user.name}`}
+                  onClick={() => onDelete(user.id)}
+              >
+                <DeleteOutlined fontSize='small'></DeleteOutlined>
+              </IconButton>
+            </div>
+        )}
       </div>
   )
 }

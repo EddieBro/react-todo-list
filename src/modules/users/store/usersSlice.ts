@@ -1,7 +1,7 @@
 import {createEntityAdapter, createSlice} from '@reduxjs/toolkit';
 import type {User} from '@/core/models/models.ts';
 import {USERS_SLICE} from './constants.ts';
-import {createUser, fetchUsers} from './usersThunks.ts';
+import {createUser, deleteUser, fetchUsers} from './usersThunks.ts';
 
 type UsersExtraState = {
   status: 'idle' | 'loading' | 'ready' | 'error';
@@ -37,6 +37,9 @@ const usersSlice = createSlice({
         })
         .addCase(createUser.fulfilled, (state, action) => {
           usersAdapter.addOne(state, action.payload);
+        })
+        .addCase(deleteUser.fulfilled, (state, action) => {
+          usersAdapter.removeOne(state, action.payload);
         })
   }
 });
