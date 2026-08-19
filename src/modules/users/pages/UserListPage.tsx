@@ -1,20 +1,19 @@
-import {Box} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import {UserList} from '../components/UserList/UserList.tsx';
-import {useUsers, useUsersCreate} from '../hooks/useUsers.ts';
+import {useUsers, useUsersCreate, useUsersDelete} from '../hooks/useUsers.ts';
 import {UserAdd} from '../components/UserAdd/UserAdd.tsx';
-import {useAppDispatch} from '@/core/store';
 import type {User} from '@/core/models/models.ts';
 import styles from './UserListPage.module.scss';
 import {Button} from '@/shared/ui/Button/Button.tsx';
 import {useState} from 'react';
 import {Modal} from '@/shared/ui/Modal/Modal.tsx';
-import {deleteUser} from '../store/usersActions.ts';
 import {PageSpinner} from '@/shared/ui/PageSpinner/PageSpinner.tsx';
 
 export const UserListPage = () => {
-  const dispatch = useAppDispatch();
-  const {users, status} = useUsers();
-  const {status: createStatus, error: createError, create, reset} = useUsersCreate();
+  const {users, listStatus} = useUsers();
+  const {createStatus, createError, create, reset} = useUsersCreate();
+  const {deleteStatus, deleteError, remove} = useUsersDelete();
+
   const [open, setOpen] = useState(false)
 
   const isOpen = open && createStatus !== 'ready';
@@ -30,11 +29,15 @@ export const UserListPage = () => {
     if (!window.confirm('Удалить пользователя?')) {
       return;
     }
-    dispatch(deleteUser(id));
+    remove(id);
   }
 
-  if (status === 'loading') {
+  if (listStatus === 'loading') {
     return <PageSpinner />;
+  }
+
+  if (listStatus === 'error') {
+    return <h1>Не удалось загрузить пользователей</h1>;
   }
 
   return (
@@ -45,8 +48,9 @@ export const UserListPage = () => {
         <div className={styles.btnWrap}>
           <Button onClick={handleOpen}>Создать пользователя</Button>
         </div>
+        {deleteError && <Typography color='error'>{deleteError}</Typography>}
         <Box className={styles.userList}>
-          <UserList userList={users} onDelete={handleDelete}  />
+          <UserList userList={users} onDelete={handleDelete} deleting={deleteStatus === 'loading'}  />
         </Box>
       </div>
   )

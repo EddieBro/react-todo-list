@@ -9,6 +9,8 @@ type UsersExtraState = {
   error: string | null;
   createStatus: ApiStatus;
   createError: string | null;
+  deleteStatus: ApiStatus;
+  deleteError: string | null
 };
 
 export const usersAdapter = createEntityAdapter<User>({
@@ -19,7 +21,9 @@ const initialState = usersAdapter.getInitialState<UsersExtraState>({
   status: 'idle',
   error: null,
   createStatus: 'idle',
-  createError: null
+  createError: null,
+  deleteStatus: 'idle',
+  deleteError: null,
 });
 
 const usersSlice = createSlice({
@@ -56,8 +60,17 @@ const usersSlice = createSlice({
           state.createStatus = 'error';
           state.createError = action.payload.error;
         })
+        .addCase(actions.deleteUser, (state) => {
+          state.deleteStatus = 'loading';
+          state.deleteError = null;
+        })
         .addCase(actions.deleteUserSuccess, (state, action) => {
           usersAdapter.removeOne(state, action.payload.data);
+          state.deleteStatus = 'ready';          // ← добавить в существующую
+        })
+        .addCase(actions.deleteUserError, (state, action) => {
+          state.deleteStatus = 'error';
+          state.deleteError = action.payload.error;
         })
         .addCase(actions.usersModuleExit, () => initialState)
   }

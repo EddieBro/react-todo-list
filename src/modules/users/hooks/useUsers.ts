@@ -2,27 +2,43 @@ import {useAppDispatch, useAppSelector} from '@/core/store';
 import {
   selectAllUsers,
   selectUsersCreateError,
-  selectUsersCreateStatus,
+  selectUsersCreateStatus, selectUsersDeleteError, selectUsersDeleteStatus,
   selectUsersError,
   selectUsersStatus
 } from '../store/usersSelectors.ts';
 import {useCallback, useMemo} from 'react';
-import {createUser, createUserReset} from '../store/usersActions.ts';
+import {createUser, createUserReset, deleteUser} from '../store/usersActions.ts';
 import type { User } from '@/core/models/models.ts';
 
 export const useUsers = () => ({
   users: useAppSelector(selectAllUsers),
-  status: useAppSelector(selectUsersStatus),
-  error: useAppSelector(selectUsersError)
+  listStatus: useAppSelector(selectUsersStatus),
+  listError: useAppSelector(selectUsersError)
 })
 
 export const useUsersCreate = () => {
   const dispatch = useAppDispatch();
-  const status = useAppSelector(selectUsersCreateStatus);
-  const error = useAppSelector(selectUsersCreateError);
+  const createStatus = useAppSelector(selectUsersCreateStatus);
+  const createError = useAppSelector(selectUsersCreateError);
 
-  const create = useCallback((draft: Omit<User, 'id'>) => dispatch(createUser(draft)),
-      [dispatch]);
+  const create = useCallback((draft: Omit<User, 'id'>) => dispatch(createUser(draft)), [dispatch]);
   const reset = useCallback(() => dispatch(createUserReset()), [dispatch]);
-  return useMemo(() => ({status, error, create, reset}), [status, error, create, reset]);
+
+  return useMemo(
+      () => ({createStatus, createError, create, reset}),
+      [createStatus, createError, create, reset],
+  );
+}
+
+export const useUsersDelete = () => {
+  const dispatch = useAppDispatch();
+  const deleteStatus = useAppSelector(selectUsersDeleteStatus);
+  const deleteError = useAppSelector(selectUsersDeleteError);
+
+  const remove = useCallback((id: User['id']) => dispatch(deleteUser(id)), [dispatch]);
+
+  return useMemo(
+      () => ({deleteStatus, deleteError, remove}),
+      [deleteStatus, deleteError, remove],
+  );
 }

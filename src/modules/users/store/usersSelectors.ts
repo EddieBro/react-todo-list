@@ -11,3 +11,5 @@ export const selectUsersStatus = (state: RootState) => state[USERS_SLICE].status
 export const selectUsersError = (state: RootState) => state[USERS_SLICE].error;
 export const selectUsersCreateStatus = (state: RootState) => state[USERS_SLICE].createStatus;
 export const selectUsersCreateError = (state: RootState) => state[USERS_SLICE].createError;
+export const selectUsersDeleteStatus = (state: RootState) => state[USERS_SLICE].deleteStatus;
+export const selectUsersDeleteError = (state: RootState) => state[USERS_SLICE].deleteError;

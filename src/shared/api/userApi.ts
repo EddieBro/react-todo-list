@@ -21,8 +21,7 @@ export const getUser = async(id: User['id']): Promise<User | null> => {
 }
 
 export const saveUser = async(user: User): Promise<User> => {
-  await delay(300);
-  const users = await getItem<User[]>('users') ?? [];
+  const users = await getUsers();
   const index = users.findIndex(u => u.id === user.id);
   let next: User[];
   if (index === -1) {
@@ -35,8 +34,7 @@ export const saveUser = async(user: User): Promise<User> => {
 }
 
 export const deleteUser = async(id: User['id']) => {
-  await delay(300);
-  const users = await getItem<User[]>('users') ?? [];
+  const users = await getUsers();
   const next = users.filter(u => u.id !== id);
   await setItem('users', next);
 }

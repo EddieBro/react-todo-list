@@ -7,9 +7,10 @@ import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 type UserCardProps = {
   user: User,
   onDelete?: (id: User['id']) => void;
+  deleting?: boolean;
 }
 
-export const UserCard = ({user, onDelete}: UserCardProps) => {
+export const UserCard = ({user, onDelete, deleting}: UserCardProps) => {
   const avatarSrc = user.avatarId ? `/img/ava${user.avatarId}.png` : '/img/ava-default.png';
 
   return (
@@ -32,6 +33,7 @@ export const UserCard = ({user, onDelete}: UserCardProps) => {
               <IconButton
                   size='small'
                   color={'warning'}
+                  disabled={deleting}
                   aria-label={`Удалить пользователя ${user.name}`}
                   onClick={() => onDelete(user.id)}
               >
