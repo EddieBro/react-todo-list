@@ -1,43 +1,49 @@
 import {Box} from '@mui/material';
 import {UserList} from '../components/UserList/UserList.tsx';
-import {useUsers} from '../hooks/useUsers.ts';
+import {useUsers, useUsersCreate} from '../hooks/useUsers.ts';
 import {UserAdd} from '../components/UserAdd/UserAdd.tsx';
-import {createUser, deleteUser} from '../store/usersThunks.ts';
 import {useAppDispatch} from '@/core/store';
 import type {User} from '@/core/models/models.ts';
 import styles from './UserListPage.module.scss';
 import {Button} from '@/shared/ui/Button/Button.tsx';
 import {useState} from 'react';
 import {Modal} from '@/shared/ui/Modal/Modal.tsx';
-import {useSession} from '@/core/session/useSession.ts';
+import {deleteUser} from '../store/usersActions.ts';
+import {PageSpinner} from '@/shared/ui/PageSpinner/PageSpinner.tsx';
 
 export const UserListPage = () => {
-  const {currentUserId, logout} = useSession();
   const dispatch = useAppDispatch();
-  const {users} = useUsers();
+  const {users, status} = useUsers();
+  const {status: createStatus, error: createError, create, reset} = useUsersCreate();
   const [open, setOpen] = useState(false)
-  const handleAdd = (draft: Omit<User, 'id'>) => {
-    dispatch(createUser(draft)).unwrap().then(() => setOpen(false));
-  };
+
+  const isOpen = open && createStatus !== 'ready';
+
+  const handleOpen = () => {
+    reset();
+    setOpen(true);
+  }
+
+  const handleAdd = (draft: Omit<User, 'id'>) => create(draft);
 
   const handleDelete = (id: User['id']) => {
     if (!window.confirm('Удалить пользователя?')) {
       return;
     }
-    dispatch(deleteUser(id)).unwrap().then(() => {
-      if (id === currentUserId) {
-        logout();
-      }
-    });
+    dispatch(deleteUser(id));
+  }
+
+  if (status === 'loading') {
+    return <PageSpinner />;
   }
 
   return (
       <div className={styles.pageWrap}>
-        <Modal open={open} onClose={() => setOpen(false)} title='Создать пользователя'>
-          <UserAdd onAdd={handleAdd} />
+        <Modal open={isOpen} onClose={() => setOpen(false)} title='Создать пользователя'>
+          <UserAdd onAdd={handleAdd} disabled={createStatus === 'loading'} error={createError} />
         </Modal>
         <div className={styles.btnWrap}>
-          <Button onClick={() => setOpen(true)}>Создать пользователя</Button>
+          <Button onClick={handleOpen}>Создать пользователя</Button>
         </div>
         <Box className={styles.userList}>
           <UserList userList={users} onDelete={handleDelete}  />

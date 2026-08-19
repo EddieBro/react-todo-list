@@ -1,11 +1,14 @@
 import {createEntityAdapter, createSlice} from '@reduxjs/toolkit';
 import type {User} from '@/core/models/models.ts';
+import type {ApiStatus} from '@/shared/models/apiStatus.ts';
 import {USERS_SLICE} from './constants.ts';
-import {createUser, deleteUser, fetchUsers} from './usersThunks.ts';
+import * as actions from './usersActions.ts';
 
 type UsersExtraState = {
-  status: 'idle' | 'loading' | 'ready' | 'error';
+  status: ApiStatus;
   error: string | null;
+  createStatus: ApiStatus;
+  createError: string | null;
 };
 
 export const usersAdapter = createEntityAdapter<User>({
@@ -14,7 +17,9 @@ export const usersAdapter = createEntityAdapter<User>({
 
 const initialState = usersAdapter.getInitialState<UsersExtraState>({
   status: 'idle',
-  error: null
+  error: null,
+  createStatus: 'idle',
+  createError: null
 });
 
 const usersSlice = createSlice({
@@ -23,24 +28,38 @@ const usersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-        .addCase(fetchUsers.pending, (state) => {
+        .addCase(actions.fetchUsers, (state) => {
           state.status = 'loading';
           state.error = null;
         })
-        .addCase(fetchUsers.fulfilled, (state, action) => {
-          usersAdapter.setAll(state, action.payload);
+        .addCase(actions.fetchUsersSuccess, (state, action) => {
+          usersAdapter.setAll(state, action.payload.data);
           state.status = 'ready';
         })
-        .addCase(fetchUsers.rejected, (state, action) => {
+        .addCase(actions.fetchUsersError, (state, action) => {
           state.status = 'error';
-          state.error = action.error.message ?? 'Не удалось загрузить пользователей';
+          state.error = action.payload.error;
         })
-        .addCase(createUser.fulfilled, (state, action) => {
-          usersAdapter.addOne(state, action.payload);
+        .addCase(actions.createUser, (state) => {
+          state.createStatus = 'loading';
+          state.createError = null;
         })
-        .addCase(deleteUser.fulfilled, (state, action) => {
-          usersAdapter.removeOne(state, action.payload);
+        .addCase(actions.createUserReset, (state) => {
+          state.createStatus = 'idle';
+          state.createError = null;
         })
+        .addCase(actions.createUserSuccess, (state, action) => {
+          usersAdapter.addOne(state, action.payload.data);
+          state.createStatus = 'ready';
+        })
+        .addCase(actions.createUserError, (state, action) => {
+          state.createStatus = 'error';
+          state.createError = action.payload.error;
+        })
+        .addCase(actions.deleteUserSuccess, (state, action) => {
+          usersAdapter.removeOne(state, action.payload.data);
+        })
+        .addCase(actions.usersModuleExit, () => initialState)
   }
 });
 

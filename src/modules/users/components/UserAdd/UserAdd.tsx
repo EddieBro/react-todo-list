@@ -1,4 +1,4 @@
-import {Stack} from '@mui/material';
+import {Stack, Typography} from '@mui/material';
 import type {User} from '@/core/models/models.ts';
 import {Button} from '@/shared/ui/Button/Button.tsx';
 import {useForm} from 'react-hook-form';
@@ -7,6 +7,8 @@ import styles from './UserAdd.module.scss';
 
 type UserAddProps = {
   onAdd: (draft: Omit<User, 'id'>) => void;
+  disabled?: boolean;
+  error?: string | null;
 };
 
 type CreateUserForm = {
@@ -14,8 +16,8 @@ type CreateUserForm = {
   avatarId: string;
 }
 
-export const UserAdd = ({onAdd}: UserAddProps) => {
-  const {control, handleSubmit, reset} = useForm<CreateUserForm>({
+export const UserAdd = ({onAdd, disabled, error}: UserAddProps) => {
+  const {control, handleSubmit} = useForm<CreateUserForm>({
     defaultValues: {name: '', avatarId: ''}
   });
 
@@ -24,29 +26,29 @@ export const UserAdd = ({onAdd}: UserAddProps) => {
       name: data.name.trim(),
       avatarId: data.avatarId ? Number(data.avatarId) : undefined,
     });
-    reset();
   }
 
   return (
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
-          <FormTextField<CreateUserForm>
-              control={control}
-              name='name'
-              rules={{required: 'Введите имя'}}
-              label='Имя'
-              fullWidth
-          />
-          <FormTextField<CreateUserForm>
-              control={control}
-              name='avatarId'
-              className={styles.avatarInput}
-              label='Аватар (1-4, необязательно)'
-              type='number'
-              fullWidth
-          />
-          <Button type='submit'>Добавить</Button>
-        </Stack>
-      </form>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Stack spacing={2}>
+        <FormTextField<CreateUserForm>
+            control={control}
+            name='name'
+            rules={{required: 'Введите имя'}}
+            label='Имя'
+            fullWidth
+        />
+        <FormTextField<CreateUserForm>
+            control={control}
+            name='avatarId'
+            className={styles.avatarInput}
+            label='Аватар (1-4, необязательно)'
+            type='number'
+            fullWidth
+        />
+        {error && <Typography color='error'>{error}</Typography>}
+        <Button type='submit' disabled={disabled}>Добавить</Button>
+      </Stack>
+    </form>
   );
 }

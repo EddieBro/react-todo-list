@@ -6,6 +6,15 @@ export {useUsers} from './hooks/useUsers.ts';
 export {useUser} from './hooks/useUser.ts';
 export {USERS_SLICE} from './store/constants.ts';
 export {usersReducer} from './store/usersSlice.ts';
-export {fetchUsers, createUser, deleteUser} from './store/usersThunks.ts';
 export {usersAdapter} from './store/usersSlice.ts';
-export {selectAllUsers, selectUserById, selectUsersMap, selectUsersStatus, selectUsersError} from './store/usersSelectors.ts';
+export {
+  selectAllUsers,
+  selectUserById,
+  selectUsersMap,
+  selectUsersStatus,
+  selectUsersError,
+  selectUsersCreateError,
+  selectUsersCreateStatus
+} from './store/usersSelectors.ts';
+export {usersEpic} from './store/usersEpics.ts';
+export {fetchUsers, createUser, deleteUser, usersModuleEnter, usersModuleExit} from './store/usersActions.ts';
