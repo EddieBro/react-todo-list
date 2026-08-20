@@ -5,8 +5,7 @@ export {UserAdd} from './components/UserAdd/UserAdd.tsx';
 export {useUsers} from './hooks/useUsers.ts';
 export {useUser} from './hooks/useUser.ts';
 export {USERS_SLICE} from './store/constants.ts';
-export {usersReducer} from './store/usersSlice.ts';
-export {usersAdapter} from './store/usersSlice.ts';
+export {usersReducer, usersAdapter} from './store/usersSlice.ts';
 export {
   selectAllUsers,
   selectUserById,
