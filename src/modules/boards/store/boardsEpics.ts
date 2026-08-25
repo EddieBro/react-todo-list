@@ -4,6 +4,8 @@ import * as actions from './boardsActions.ts'
 import {catchError, filter, from, map, mergeMap, of, switchMap} from 'rxjs';
 import {BOARDS_SLICE} from './constants.ts';
 import {createId} from '@/shared/utils/id.ts';
+import {deleteUserSuccess} from '@/modules/users';
+import {selectAllBoards} from './boardsSelectors.ts';
 
 const loadBoardsEpic: AppEpic = (action$, state$) =>
   action$.pipe(
@@ -59,4 +61,33 @@ const deleteBoardEpic: AppEpic = (action$, _state$, {boardApi}) =>
     )
   )
 
-export const boardsEpic = combineEpics(loadBoardsEpic, fetchBoardsEpic, createBoardEpic, updateBoardEpic, deleteBoardEpic);
+const cascadeUserDeleteEpic: AppEpic = (action$, state$) =>
+  action$.pipe(
+    filter(deleteUserSuccess.match),
+    mergeMap(action => {
+      const userId = action.payload.data;
+      const boards = selectAllBoards(state$.value);
+
+      const owned = boards.filter(b => b.ownerId === userId);
+      const edited = boards.filter(
+        b => b.ownerId !== userId && b.editorsIds.includes(userId),
+      );
+
+      return from([
+        ...owned.map(b => actions.deleteBoard(b.id)),
+        ...edited.map(b => actions.updateBoard({
+          ...b,
+          editorsIds: b.editorsIds.filter(id => id !== userId),
+        }))
+      ])
+    })
+  )
+
+export const boardsEpic = combineEpics(
+  loadBoardsEpic,
+  fetchBoardsEpic,
+  createBoardEpic,
+  updateBoardEpic,
+  deleteBoardEpic,
+  cascadeUserDeleteEpic
+);

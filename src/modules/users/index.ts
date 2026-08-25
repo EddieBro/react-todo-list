@@ -16,4 +16,12 @@ export {
   selectUsersCreateStatus
 } from './store/usersSelectors.ts';
 export {usersEpic} from './store/usersEpics.ts';
-export {fetchUsers, createUser, deleteUser, usersModuleEnter, usersModuleExit} from './store/usersActions.ts';
+export {
+  fetchUsers,
+  createUser,
+  deleteUser,
+  deleteUserSuccess,
+  deleteUserError,
+  usersModuleEnter,
+  usersModuleExit
+} from './store/usersActions.ts';
