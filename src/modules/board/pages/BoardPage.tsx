@@ -1,12 +1,18 @@
 import {Column} from '../components/Column/Column.tsx';
 import {useBoard} from '../hooks/useBoard.ts';
 import styles from './BoardPage.module.scss';
+import {useParams} from 'react-router-dom';
+import {useBoardModule} from '../hooks/useBoardModule.ts';
+import {PageSpinner} from '@/shared/ui/PageSpinner/PageSpinner.tsx';
 
 export const BoardPage = () => {
-  const board = useBoard();
-  if (!board) {
-    return <div>Доска не найдена</div>
-  }
+  const {boardId} = useParams();
+  useBoardModule(boardId!);
+
+  const {board, status} = useBoard();
+
+  if (status === 'idle' || status === 'loading') return <PageSpinner />;
+  if (status === 'error' || !board) return <div>Доска не найдена</div>;
 
   return (
       <div className={styles.pageWrap}>

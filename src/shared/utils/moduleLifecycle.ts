@@ -1,5 +1,8 @@
-export const moduleEnter = () => () => {
-  // action for effects: page mounted
-};
+import {createAction} from '@reduxjs/toolkit';
 
-export const moduleExit = <S>(initialState: S) => () => initialState;
+export const createModuleLifecycle = <P = void>(sliceName: string) => ({
+  moduleEnter: createAction<P>(`${sliceName}/moduleEnter`),
+  moduleExit: createAction(`${sliceName}/moduleExit`),
+});
+
+export const resetOnExit = <S>(initialState: S) => () => initialState;

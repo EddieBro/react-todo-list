@@ -7,18 +7,20 @@ import type {EpicDependencies, RootState} from '@/core/store/types.ts';
 import {boardApi} from '@/shared/api/boardApi.ts';
 import {userApi} from '@/shared/api/userApi.ts';
 import {BOARDS_SLICE, boardsReducer, boardsEpic} from '@/modules/boards';
+import {BOARD_SLICE, boardEpic, boardReducer} from '@/modules/board';
 
 export const rootReducer = combineReducers({
   session: sessionReducer,
   [USERS_SLICE]: usersReducer,
-  [BOARDS_SLICE]: boardsReducer
+  [BOARDS_SLICE]: boardsReducer,
+  [BOARD_SLICE]: boardReducer
 });
 
 const epicMiddleware = createEpicMiddleware<UnknownAction, UnknownAction, RootState, EpicDependencies>({
   dependencies: {userApi, boardApi},
 });
 
-const rootEpic = combineEpics(usersEpic, boardsEpic);
+const rootEpic = combineEpics(usersEpic, boardsEpic, boardEpic);
 
 export const store = configureStore({
   reducer: rootReducer,
