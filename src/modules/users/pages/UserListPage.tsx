@@ -32,9 +32,7 @@ export const UserListPage = () => {
     remove(id);
   }
 
-  if (listStatus === 'loading') {
-    return <PageSpinner />;
-  }
+  if (listStatus === 'idle' || listStatus === 'loading') return <PageSpinner />
 
   if (listStatus === 'error') {
     return <h1>Не удалось загрузить пользователей</h1>;

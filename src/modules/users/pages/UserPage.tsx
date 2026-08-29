@@ -6,9 +6,7 @@ import {PageSpinner} from '@/shared/ui/PageSpinner/PageSpinner.tsx';
 export const UserPage = () => {
   const {user, status} = useUser();
 
-  if (status === 'loading') {
-    return <PageSpinner/>;
-  }
+  if (status === 'idle' || status === 'loading') return <PageSpinner />
 
   if (status === 'error') {
     return <h1>Не удалось загрузить пользователя</h1>;

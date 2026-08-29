@@ -9,8 +9,11 @@ import type {Board} from '@/core/models/models.ts';
 import {useUsers} from '@/modules/users';
 import {PageSpinner} from '@/shared/ui/PageSpinner/PageSpinner.tsx';
 import {Typography} from '@mui/material';
+import {useModuleLifecycle} from '@/core/store';
+import {boardsModuleEnter, boardsModuleExit} from '../store/boardsActions.ts';
 
 export const BoardListPage = () => {
+  useModuleLifecycle(boardsModuleEnter, boardsModuleExit);
   const {boards, listStatus} = useBoards();
   const {users} = useUsers();
   const {createStatus, createError, create, reset} = useBoardsCreate();
@@ -30,7 +33,7 @@ export const BoardListPage = () => {
     remove(id)
   }
 
-  if (listStatus === 'loading') return <PageSpinner />
+  if (listStatus === 'idle' || listStatus === 'loading') return <PageSpinner />
   if (listStatus === 'error') return <h1>Не удалось загрузить доски</h1>;
   return (
       <div className={styles.pageWrap}>
