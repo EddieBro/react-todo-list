@@ -9,9 +9,12 @@ type BoardModuleState = {
   board: BoardDetails | null;
   status: ApiStatus;
   error: string | null;
+  saveStatus: ApiStatus;
+  saveError: string | null;
 }
 
-const initialModuleState: BoardModuleState = {board: null, status: 'idle', error: null};
+
+const initialModuleState: BoardModuleState = {board: null, status: 'idle', error: null, saveStatus: 'idle', saveError: null};
 
 const boardSlice = createSlice({
   name: BOARD_SLICE,
@@ -31,6 +34,33 @@ const boardSlice = createSlice({
         state.status = 'error';
         state.error = action.payload.error;
         state.board = null;
+      })
+      .addCase(actions.moveTask, (state, action) => {
+        const {taskId, fromColumnId, toColumnId, toIndex} = action.payload;
+        if (!state.board) return;
+
+        const from = state.board.columns.find(c => c.id === fromColumnId);
+        const to = state.board.columns.find(c => c.id === toColumnId);
+        if (!from || !to) return;
+        const index = from.taskIds.indexOf(taskId);
+        if (index === -1) return;
+
+        from.taskIds.splice(index, 1);
+        to.taskIds.splice(toIndex, 0, taskId);
+      })
+      .addCase(actions.saveBoard, (state) => {
+        if (!state.board) return;
+        state.saveStatus = 'loading';
+        state.saveError = null;
+      })
+      .addCase(actions.saveBoardSuccess, (state) => {
+        if (!state.board) return;
+        state.saveStatus = 'ready';
+      })
+      .addCase(actions.saveBoardError, (state, action) => {
+        if (!state.board) return;
+        state.saveStatus = 'error';
+        state.saveError = action.payload.error;
       })
       .addCase(actions.boardModuleExit, resetOnExit(initialModuleState));
   }

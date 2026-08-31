@@ -42,6 +42,15 @@ export const updateBoard = async (board: Board): Promise<Board> => {
   return board;
 }
 
+export const saveBoard = async (board: BoardDetails): Promise<BoardDetails> => {
+  const boards = await getBoardsDetails();
+  if (!boards.some(b => b.id === board.id)) {
+    throw new Error(`Доска ${board.id} не найдена`);
+  }
+  await setItem('boards', boards.map(b => b.id === board.id ? board : b));
+  return board;
+}
+
 export const deleteBoard = async (id: Board['id']): Promise<void> => {
   const boards = await getBoardsDetails();
   const next = boards.filter(b => b.id !== id);
@@ -54,4 +63,5 @@ export const boardApi: BoardApi = {
   createBoard,
   updateBoard,
   deleteBoard,
+  saveBoard
 };

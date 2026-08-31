@@ -12,5 +12,6 @@ export type BoardApi = {
   getBoard(id: Board['id']): Promise<BoardDetails | null>;
   createBoard(board: Board): Promise<Board>;
   updateBoard(board: Board): Promise<Board>;
-  deleteBoard(id: Board['id']): Promise<void>
+  deleteBoard(id: Board['id']): Promise<void>;
+  saveBoard(board: BoardDetails): Promise<BoardDetails>
 }
