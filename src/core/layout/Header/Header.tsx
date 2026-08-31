@@ -1,6 +1,7 @@
 import { Link, Stack,} from '@mui/material';
 import {NavLink} from 'react-router-dom';
 import styles from './Header.module.scss'
+import {CurrentUserSelect} from './CurrentUserSelect/CurrentUserSelect.tsx';
 
 export const Header = () => {
   return (
@@ -9,6 +10,7 @@ export const Header = () => {
           <Link underline='hover' component={NavLink} to='/users' color='inherit'>Пользователи</Link>
           <Link  underline='hover' component={NavLink} to='/boards' color='inherit'>Доски</Link>
         </Stack>
+        <CurrentUserSelect />
       </header>
   )
 }

@@ -9,10 +9,16 @@ export const BoardPage = () => {
   const {boardId} = useParams();
   useBoardModule(boardId!);
 
-  const {board, status} = useBoard();
+  const {board, status, canEdit} = useBoard();
 
   if (status === 'idle' || status === 'loading') return <PageSpinner />;
   if (status === 'error' || !board) return <div>Доска не найдена</div>;
+
+  if (!canEdit) return (
+      <div className={styles.pageWrap}>
+        <div>Нет доступа к этой доске</div>
+      </div>
+  );
 
   return (
       <div className={styles.pageWrap}>
