@@ -1,6 +1,8 @@
 import styles from './BoardListPage.module.scss';
+import {boardsModuleEnter, boardsModuleExit} from '../store/boardsActions.ts';
 import {BoardAdd} from '../components/BoardAdd/BoardAdd.tsx';
 import {BoardsTable} from '../components/BoardsTable/BoardsTable.tsx';
+
 import {useBoards, useBoardsCreate, useBoardsDelete} from '../hooks/useBoards.ts';
 import {useState} from 'react';
 import {Button} from '@/shared/ui/Button/Button.tsx';
@@ -10,7 +12,7 @@ import {useUsers} from '@/modules/users';
 import {PageSpinner} from '@/shared/ui/PageSpinner/PageSpinner.tsx';
 import {Typography} from '@mui/material';
 import {useModuleLifecycle} from '@/core/store';
-import {boardsModuleEnter, boardsModuleExit} from '../store/boardsActions.ts';
+import {useSession} from '@/core/session/useSession.ts';
 
 export const BoardListPage = () => {
   useModuleLifecycle(boardsModuleEnter, boardsModuleExit);
@@ -18,6 +20,7 @@ export const BoardListPage = () => {
   const {users} = useUsers();
   const {createStatus, createError, create, reset} = useBoardsCreate();
   const {deleteStatus, deleteError, remove} = useBoardsDelete();
+  const {currentUserId} = useSession();
   const [open, setOpen] = useState(false);
 
   const isOpen = open && createStatus !== 'ready';
@@ -41,10 +44,23 @@ export const BoardListPage = () => {
           <Button onClick={handleOpen}>Создать доску</Button>
         </div>
         <Modal open={isOpen} onClose={() => setOpen(false)} title='Создать доску'>
-          <BoardAdd users={users} onAdd={handleAdd} disabled={createStatus === 'loading'} error={createError} />
+          <BoardAdd
+            users={users}
+            onAdd={handleAdd}
+            disabled={createStatus === 'loading'}
+            error={createError}
+            defaultOwnerId={currentUserId ?? undefined}
+          />
         </Modal>
         {deleteError && <Typography color='error'>{deleteError}</Typography>}
-        <BoardsTable boards={boards} users={users} onDelete={handleDelete} deleting={deleteStatus === 'loading'} />
+        {boards.length === 0
+          ? <Typography color='text.secondary'>
+            {currentUserId
+              ? 'Нет досок, к которым у вас есть доступ'
+              : 'Выберите пользователя, чтобы увидеть доски'}
+            </Typography>
+          : <BoardsTable boards={boards} users={users} onDelete={handleDelete} deleting={deleteStatus === 'loading'} />
+        }
       </div>
   )
 }

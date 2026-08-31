@@ -12,6 +12,8 @@ import {useBoardModule} from '../hooks/useBoardModule.ts';
 import {useAddTask} from '../hooks/useAddTask.ts';
 import {useBoard} from '../hooks/useBoard.ts';
 import {TaskAdd} from '../components/TaskAdd/TaskAdd.tsx';
+import {useBoardAccess} from '../hooks/useBoardAccess.ts';
+import {BoardAccess} from '../components/BoardAccess/BoardAccess.tsx';
 
 
 
@@ -22,6 +24,10 @@ export const BoardPage = () => {
   useBoardModule(boardId!);
 
   const {board, status, canEdit} = useBoard();
+
+  const {owner, editors} = useBoardAccess();
+
+
 
   const [open, setOpen] = useState(false);
   const add = useAddTask();
@@ -50,6 +56,7 @@ export const BoardPage = () => {
   return (
       <div className={styles.pageWrap}>
         <h1>{board.title}</h1>
+        <BoardAccess owner={owner} editors={editors} />
         <div className={styles.addWrap}>
           <Button onClick={() => setOpen(true)}>Создать задачу</Button>
         </div>

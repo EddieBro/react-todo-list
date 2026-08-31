@@ -1,6 +1,9 @@
 import {useAppDispatch, useAppSelector} from '@/core/store';
 import {
-  selectAllBoards, selectBoardsCreateError, selectBoardsCreateStatus, selectBoardsDeleteError,
+  selectAccessibleBoards,
+  selectBoardsCreateError,
+  selectBoardsCreateStatus,
+  selectBoardsDeleteError,
   selectBoardsDeleteStatus,
   selectBoardsError,
   selectBoardsStatus
@@ -10,7 +13,7 @@ import type {Board} from '@/core/models/models.ts';
 import {createBoard, createBoardReset, deleteBoard} from '../store/boardsActions.ts';
 
 export const useBoards = () => ({
-  boards: useAppSelector(selectAllBoards),
+  boards: useAppSelector(selectAccessibleBoards),
   listStatus: useAppSelector(selectBoardsStatus),
   listError: useAppSelector(selectBoardsError)
 })

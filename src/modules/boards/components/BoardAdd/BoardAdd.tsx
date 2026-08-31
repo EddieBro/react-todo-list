@@ -8,6 +8,7 @@ import {FormSelect} from '@/shared/ui/FormSelect/FormSelect.tsx';
 
 type BoardAddProps = {
   users: User[];
+  defaultOwnerId?: User['id'];
   onAdd: (draft: Omit<Board, 'id'>) => void;
   disabled?: boolean;
   error?: string | null;
@@ -19,9 +20,9 @@ type CreateBoardForm = {
   editorsIds: User['id'][];
 }
 
-export const BoardAdd = ({users, onAdd, disabled, error}: BoardAddProps) => {
+export const BoardAdd = ({users, onAdd, disabled, error, defaultOwnerId}: BoardAddProps) => {
   const {control, handleSubmit } = useForm<CreateBoardForm>({
-    defaultValues: { title: '', ownerId: '', editorsIds: []}
+    defaultValues: { title: '', ownerId: defaultOwnerId ?? '', editorsIds: []}
   })
   const userOptions = users.map(u => ({value: u.id, label: u.name}))
 

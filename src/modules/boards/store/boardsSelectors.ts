@@ -1,6 +1,7 @@
 import {BOARDS_SLICE} from './constants.ts';
 import {boardsAdapter} from './boardsSlice.ts'
 import type {RootState} from '@/core/store';
+import {createSelector} from '@reduxjs/toolkit';
 
 const selectors = boardsAdapter.getSelectors((state: RootState) => state[BOARDS_SLICE]);
 
@@ -12,3 +13,10 @@ export const selectBoardsCreateStatus = (state: RootState) => state[BOARDS_SLICE
 export const selectBoardsCreateError = (state: RootState) => state[BOARDS_SLICE].createError
 export const selectBoardsDeleteStatus = (state: RootState) => state[BOARDS_SLICE].deleteStatus;
 export const selectBoardsDeleteError = (state: RootState) => state[BOARDS_SLICE].deleteError;
+
+export const selectAccessibleBoards = createSelector(
+    [selectAllBoards, (state: RootState) => state.session.userId],
+    (boards, userId) => userId
+        ? boards.filter(b => b.ownerId === userId || b.editorsIds.includes(userId))
+        : [],
+);
