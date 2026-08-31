@@ -7,7 +7,7 @@ import {selectBoard} from './boardSelectors.ts';
 import {SAVE_DELAY} from './constants.ts';
 import * as actions from './boardActions.ts';
 
-const BOARD_MUTATIONS = [actions.moveTask];
+const BOARD_MUTATIONS = [actions.moveTask, actions.addTask];
 const isBoardMutation =(a: UnknownAction) => BOARD_MUTATIONS.some(m => m.match(a));
 
 const loadBoardEpic: AppEpic = action$ =>

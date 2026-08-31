@@ -3,6 +3,7 @@ import type {Board, BoardDetails} from '@/core/models/models.ts';
 import {getItem, setItem} from '@/shared/api/storage.ts';
 import {boardsDataMock} from '@/shared/api/mocks/boardsDataMock.ts';
 import {delay} from '@/shared/api/delay.ts';
+import {createDefaultColumns} from '@/shared/api/mocks/defaultColumns.ts';
 
 const getBoardsDetails = async (): Promise<BoardDetails[]> => {
   await delay(300);
@@ -27,7 +28,7 @@ export const getBoard = async (id: Board['id']): Promise<BoardDetails | null> =>
 
 export const createBoard = async (board: Board): Promise<Board> => {
   const boards = await getBoardsDetails();
-  const newBoard: BoardDetails = {...board, columns: [], tasks: {}}
+  const newBoard: BoardDetails = {...board, columns: createDefaultColumns(), tasks: {}}
   await setItem('boards', [...boards, newBoard])
   return board;
 }

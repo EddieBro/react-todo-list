@@ -11,6 +11,11 @@ export type MoveTaskPayload = {
   toIndex: number;
 }
 
+export type AddTaskPayload = {
+  task: Task;
+  columnId: Column['id'];
+}
+
 export const {moduleEnter: boardModuleEnter, moduleExit: boardModuleExit} = createModuleLifecycle<Board['id']>(BOARD_SLICE);
 
 export const fetchBoard = createAction<Board['id']>(`${BOARD_SLICE}/fetchBoard`);
@@ -21,3 +26,5 @@ export const moveTask = createAction<MoveTaskPayload>(`${BOARD_SLICE}/moveTask`)
 export const saveBoard = createAction<BoardDetails>(`${BOARD_SLICE}/saveBoard`);
 export const saveBoardSuccess = createAction<PayloadApiSuccess<BoardDetails>>(`${BOARD_SLICE}/saveBoardSuccess`);
 export const saveBoardError = createAction<PayloadApiError>(`${BOARD_SLICE}/saveBoardError`);
+
+export const addTask = createAction<AddTaskPayload>(`${BOARD_SLICE}/addTask`);

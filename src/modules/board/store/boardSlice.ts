@@ -62,6 +62,16 @@ const boardSlice = createSlice({
         state.saveStatus = 'error';
         state.saveError = action.payload.error;
       })
+      .addCase(actions.addTask, (state, action) => {
+        const {task, columnId} = action.payload;
+        if (!state.board) return;
+
+        const column = state.board.columns.find(c => c.id === columnId);
+        if (!column) return;
+
+        state.board.tasks[task.id] = task;
+        column.taskIds.push(task.id);
+      })
       .addCase(actions.boardModuleExit, resetOnExit(initialModuleState));
   }
 });
