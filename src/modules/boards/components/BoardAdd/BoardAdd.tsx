@@ -1,6 +1,6 @@
 import styles from './BoardAdd.module.scss';
 import type {Board, User} from '@/core/models/models.ts';
-import {useForm} from 'react-hook-form';
+import {useForm, useWatch} from 'react-hook-form';
 import {Stack, Typography} from '@mui/material';
 import {FormTextField} from '@/shared/ui/FormTextField/FormTextField.tsx';
 import {Button} from '@/shared/ui/Button/Button.tsx';
@@ -25,12 +25,14 @@ export const BoardAdd = ({users, onAdd, disabled, error, defaultOwnerId}: BoardA
     defaultValues: { title: '', ownerId: defaultOwnerId ?? '', editorsIds: []}
   })
   const userOptions = users.map(u => ({value: u.id, label: u.name}))
+  const ownerId = useWatch({control, name: 'ownerId'});
+  const editorOptions = userOptions.filter(o => o.value !== ownerId);
 
   const onSubmit = (data: CreateBoardForm) => {
     onAdd({
       title: data.title.trim(),
       ownerId: data.ownerId,
-      editorsIds: data.editorsIds
+      editorsIds: data.editorsIds.filter(id => id !== data.ownerId)
     });
   }
   return (
@@ -54,7 +56,7 @@ export const BoardAdd = ({users, onAdd, disabled, error, defaultOwnerId}: BoardA
                 name='editorsIds'
                 control={control}
                 label='Редакторы'
-                options={userOptions}
+                options={editorOptions}
                 multiple
             />
             {error && <Typography color='error'>{error}</Typography>}

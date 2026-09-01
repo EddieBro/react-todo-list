@@ -10,3 +10,9 @@ export const selectCanEditBoard = (state: RootState) => {
   if (!board || !userId) return false;
   return board.ownerId === userId || board.editorsIds.includes(userId);
 }
+
+export const selectIsBoardOwner = (state: RootState) => {
+  const board = selectBoard(state);
+  const userId = state.session.userId;
+  return !!board && !!userId && board.ownerId === userId;
+}

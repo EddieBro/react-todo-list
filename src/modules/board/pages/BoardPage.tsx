@@ -7,15 +7,15 @@ import {useMoveTask} from '../hooks/useMoveTask.ts';
 import {useState} from 'react';
 import {Button} from '@/shared/ui/Button/Button.tsx';
 import {Modal} from '@/shared/ui/Modal/Modal.tsx';
+import {useUsers} from '@/modules/users';
 
 import {useBoardModule} from '../hooks/useBoardModule.ts';
 import {useAddTask} from '../hooks/useAddTask.ts';
-import {useBoard} from '../hooks/useBoard.ts';
+import {useBoard, useSetEditors} from '../hooks/useBoard.ts';
 import {TaskAdd} from '../components/TaskAdd/TaskAdd.tsx';
 import {useBoardAccess} from '../hooks/useBoardAccess.ts';
 import {BoardAccess} from '../components/BoardAccess/BoardAccess.tsx';
-
-
+import {EditorsEdit} from '../components/EditorsEdit/EditorsEdit.tsx';
 
 
 export const BoardPage = () => {
@@ -23,9 +23,11 @@ export const BoardPage = () => {
   const {boardId} = useParams();
   useBoardModule(boardId!);
 
-  const {board, status, canEdit} = useBoard();
-
+  const {board, status, canEdit, isOwner} = useBoard();
   const {owner, editors} = useBoardAccess();
+  const {users} = useUsers();
+  const setBoardEditors = useSetEditors();
+  const [editorsOpen, setEditorsOpen] = useState(false);
 
 
 
@@ -56,7 +58,19 @@ export const BoardPage = () => {
   return (
       <div className={styles.pageWrap}>
         <h1>{board.title}</h1>
-        <BoardAccess owner={owner} editors={editors} />
+        <BoardAccess
+          owner={owner}
+          editors={editors}
+          onEditEditors={isOwner ? () => setEditorsOpen(true) : undefined}
+        />
+        <Modal open={editorsOpen} onClose={() => setEditorsOpen(false)} title='Редакторы доски'>
+          <EditorsEdit
+            users={users}
+            ownerId={board.ownerId}
+            editorsIds={board.editorsIds}
+            onSave={ids => {setBoardEditors(ids); setEditorsOpen(false)}}
+          />
+        </Modal>
         <div className={styles.addWrap}>
           <Button onClick={() => setOpen(true)}>Создать задачу</Button>
         </div>

@@ -72,6 +72,10 @@ const boardSlice = createSlice({
         state.board.tasks[task.id] = task;
         column.taskIds.push(task.id);
       })
+      .addCase(actions.setEditors, (state, action) => {
+        if (!state.board) return;
+        state.board.editorsIds = action.payload;
+      })
       .addCase(actions.boardModuleExit, resetOnExit(initialModuleState));
   }
 });

@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {createModuleLifecycle} from '@/shared/utils/moduleLifecycle.ts';
-import type {Board, BoardDetails, Column, Task} from '@/core/models/models.ts';
+import type {Board, BoardDetails, Column, Task, User} from '@/core/models/models.ts';
 import type {PayloadApiError, PayloadApiSuccess} from '@/shared/models/apiStatus.ts';
 import {BOARD_SLICE} from './constants.ts';
 
@@ -28,3 +28,5 @@ export const saveBoardSuccess = createAction<PayloadApiSuccess<BoardDetails>>(`$
 export const saveBoardError = createAction<PayloadApiError>(`${BOARD_SLICE}/saveBoardError`);
 
 export const addTask = createAction<AddTaskPayload>(`${BOARD_SLICE}/addTask`);
+
+export const setEditors = createAction<User['id'][]>(`${BOARD_SLICE}/setEditors`);
