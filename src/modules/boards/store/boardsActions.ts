@@ -22,3 +22,5 @@ export const updateBoardError = createAction<PayloadApiError>(`${BOARDS_SLICE}/u
 export const deleteBoard = createAction<Board['id']>(`${BOARDS_SLICE}/deleteBoard`);
 export const deleteBoardSuccess = createAction<PayloadApiSuccess<Board['id']>>(`${BOARDS_SLICE}/deleteBoardSuccess`);
 export const deleteBoardError = createAction<PayloadApiError>(`${BOARDS_SLICE}/deleteBoardError`);
+
+export const cascadeUserDeleteError = createAction<PayloadApiError>(`${BOARDS_SLICE}/cascadeUserDeleteError`);
