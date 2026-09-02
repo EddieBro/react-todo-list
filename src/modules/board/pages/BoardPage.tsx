@@ -16,6 +16,8 @@ import {TaskAdd} from '../components/TaskAdd/TaskAdd.tsx';
 import {useBoardAccess} from '../hooks/useBoardAccess.ts';
 import {BoardAccess} from '../components/BoardAccess/BoardAccess.tsx';
 import {EditorsEdit} from '../components/EditorsEdit/EditorsEdit.tsx';
+import {TextFieldWrap} from '@/shared/ui/TextField/TextField.tsx';
+import {Typography} from '@mui/material';
 
 
 export const BoardPage = () => {
@@ -27,12 +29,20 @@ export const BoardPage = () => {
   const {owner, editors} = useBoardAccess();
   const {users} = useUsers();
   const setBoardEditors = useSetEditors();
-  const [editorsOpen, setEditorsOpen] = useState(false);
-
-
-
-  const [open, setOpen] = useState(false);
   const add = useAddTask();
+
+  const [editorsOpen, setEditorsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const [search, setSearch] = useState('');
+  const query = search.trim().toLowerCase();
+  const isSearching = query.length > 0;
+
+  const foundCount = board?.columns.reduce(
+      (acc, c) => acc + c.taskIds.filter(id => board.tasks[id].title.toLowerCase().includes(query)).length,
+      0,
+  );
+
 
   const handleDragEnd = ({draggableId, source, destination}: DropResult) => {
     if (!destination) return;
@@ -71,21 +81,41 @@ export const BoardPage = () => {
             onSave={ids => {setBoardEditors(ids); setEditorsOpen(false)}}
           />
         </Modal>
+
         <div className={styles.addWrap}>
           <Button onClick={() => setOpen(true)}>Создать задачу</Button>
+          <Modal open={open} onClose={() => setOpen(false)} title='Создать задачу'>
+            <TaskAdd
+                columns={board.columns}
+                onAdd={(draft, columnId) => { add(draft, columnId); setOpen(false); }}
+            />
+          </Modal>
+        </div>
+        <div className={styles.searchWrap}>
+          <TextFieldWrap
+              size='small'
+              label='Поиск по карточкам'
+              variant='outlined'
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+          />
         </div>
 
+        {isSearching && foundCount === 0 && (
+            <Typography color='text.secondary'>Ничего не найдено</Typography>
+        )}
 
-        <Modal open={open} onClose={() => setOpen(false)} title='Создать задачу'>
-          <TaskAdd
-              columns={board.columns}
-              onAdd={(draft, columnId) => { add(draft, columnId); setOpen(false); }}
-          />
-        </Modal>
         <DragDropContext onDragEnd={handleDragEnd}>
           <div className={styles.columnWrap}>
             {board.columns.map(column => (
-                <Column key={column.id} column={column} tasks={column.taskIds.map(id => board.tasks[id])} />
+                <Column
+                  key={column.id}
+                  column={column}
+                  tasks={column.taskIds
+                      .map(id => board.tasks[id])
+                      .filter(task => !isSearching || task.title.toLowerCase().includes(query))}
+                  dragDisabled={isSearching}
+                />
             ))}
           </div>
         </DragDropContext>

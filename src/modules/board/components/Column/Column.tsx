@@ -3,7 +3,7 @@ import {TaskCard} from '../TaskCard/TaskCard.tsx';
 import styles from './Column.module.scss';
 import {Droppable} from '@hello-pangea/dnd';
 
-export const Column = ({column, tasks}: {column: col, tasks: Task[]}) => {
+export const Column = ({column, tasks, dragDisabled}: {column: col, tasks: Task[], dragDisabled?: boolean}) => {
   return (
       <div className={styles.columnWrap}>
         <div className={styles.titleBlock}>
@@ -17,7 +17,7 @@ export const Column = ({column, tasks}: {column: col, tasks: Task[]}) => {
                 {...provided.droppableProps}
             >
               {tasks.map((task, index) => (
-                  <TaskCard key={task.id} task={task} index={index} />
+                  <TaskCard key={task.id} task={task} index={index} dragDisabled={dragDisabled} />
               ))}
               {provided.placeholder}
             </div>

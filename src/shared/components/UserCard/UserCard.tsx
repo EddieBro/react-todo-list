@@ -22,7 +22,7 @@ export const UserCard = ({user, onDelete, deleting}: UserCardProps) => {
           />
         </div>
         <div>
-          <div className={styles.userBlockId}>ID: {user.id}</div>
+          <div className={styles.userBlockId} title={user.id}>ID: {user.id}</div>
           <div className={styles.userBlockName}>
             Name:{' '}
             <Link to={generatePath('/users/:userId', {userId: user.id})}>{user.name}</Link>
